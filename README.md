@@ -55,9 +55,9 @@ CONTROLLERファイルを格納する: ./www/potore/app/Http/Controllers<br>
 掲示板投稿: ./www/potore/app/Http/Controllers/CommentController.php<br>
 問合せ: ./www/potore/app/Http/Controllers/contactController.php<br>
 ### マイグレーションファイル
-各種テーブルの設定: ./www/potore/database/migrations/
-シーダー: ./www/potore/database/seeds
-ER図: ./ERDiagram.jpg
+各種テーブルの設定: ./www/potore/database/migrations/<br>
+シーダー: ./www/potore/database/seeds<br>
+ER図: ./ERDiagram.jpg<br>
 
 ## Docker
 ### Dockerを採用した理由
