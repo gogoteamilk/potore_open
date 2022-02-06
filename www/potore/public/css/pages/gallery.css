@@ -1,0 +1,35 @@
+.sortable-chosen {
+	background-color: #edb54c;
+}
+
+.listImg {
+	height: 50px;
+	margin: 0 auto;
+	display: block;
+	object-fit: contain;
+}
+
+.modalImg{
+	max-width: 100%;
+	height: 100px;
+	margin: 0 auto;
+	display: block;
+	object-fit: contain;
+}
+
+#countryList{
+	display: inline-block;
+}
+.suggestImg{
+	height: 25px;
+	margin: 0 auto;
+	object-fit: contain;
+}
+
+.choices__item--choice{
+	color: black;
+}
+
+#uplode_img_file{
+    display: none;
+}

@@ -1,0 +1,6 @@
+debug.sh
+sftp-config.json
+assets/domainkeys/mail.*
+cert
+certs
+dkim

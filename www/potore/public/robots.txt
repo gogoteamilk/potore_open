@@ -1,0 +1,11 @@
+User-agent: *
+
+Disallow:/auth/
+Disallow:/password/reset
+
+Disallow:/users/search
+Disallow:/home
+Disallow:/home/setting
+Disallow:/home/profile
+Disallow:/home/gallery
+Disallow:/home/security

@@ -1,0 +1,142 @@
+version: '3'
+services:
+  https-portal:
+    restart: always
+    image: steveltn/https-portal
+    ports:
+      - 80:80
+      - 443:443
+    environment:
+      DOMAINS:  $https_portal_DOMAINS
+      STAGE: $https_portal_STAGE
+      CLIENT_MAX_BODY_SIZE: $all_CLIENT_MAX_BODY_SIZE
+    volumes:
+      - ./ssl-certs:/var/lib/https-portal
+    depends_on:
+      - nginx
+    networks:                            
+      - $all_network 
+
+  nginx:
+    restart: always
+    build:
+      context: ./nginx
+    ports:
+      - 8000:80
+    volumes:
+      - ./www:/var/www:cached
+      - ./log:/var/log/nginx:cached
+      - ./sftp-server:/var/www/files
+    depends_on:
+      - php
+    environment:
+      WORKER_PROCESSES: 2
+      WORKER_CONNECTIONS: 1024
+      KEEPALIVE_TIMEOUT: 65
+      BACKEND_HOST: php:9000
+      BACKEND_MAX_FAILS: 3
+      BACKEND_FAIL_TIMEOUT: 10s
+      CLIENT_MAX_BODY_SIZE: $all_CLIENT_MAX_BODY_SIZE
+      SERVER_PORT: 80
+      SERVER_NAME: appnet_nginx
+      LOG_STDOUT: "true"
+    networks:
+      - $all_network 
+
+  php:
+    restart: always
+    build:
+      context: ./phpfpm
+    volumes: 
+      - $php_volume_sshkey
+      - ./www:/var/www:cached
+      - ./log:/tmp 
+    depends_on:
+      - mysql
+    environment:
+      #プロジェクトの設定
+      app_name: potore
+      app_env: $php_app_env #解発環境
+      app_debug: $php_app_debug #debugモード
+      #管理者情報
+      admin_mail: $admin_mail
+      #DB設定
+      db_connection: mysql
+      db_host: mysql
+      db_port: 3306
+      db_database: potore
+      db_username: laravel
+      db_password: pZ62ntv7
+      #外部認証
+      TWITTER_CLIENT_KEY: $php_TWITTER_CLIENT_KEY
+      TWITTER_CLIENT_SECRET: $php_TWITTER_CLIENT_SECRET
+      TWITTER_CLIENT_CALLBACK: $php_TWITTER_CLIENT_CALLBACK
+      #defaultはmailhogが使える
+      mail_mailer: $php_mail_mailer
+      mail_host: $php_mail_host
+      mail_port: $php_mail_port
+      mail_username: $php_mail_username
+      mail_password: $php_mail_password
+      mail_encryption: $php_mail_encryption 
+      mail_from_address: $php_mail_from_address
+      #SFTP
+      sftp_host: $php_sftp_host
+      sftp_port: $php_sftp_port
+      sftp_username: $php_sftp_username
+      sftp_password: $php_sftp_password
+      sftp_privatekey: $php_sftp_privatekey
+      sftp_root: $php_sftp_root
+      sftp_timeout: $php_sftp_timeout
+      sftp_url: $php_sftp_url
+      sftp_directoryperm: $php_sftp_directoryperm
+      sftp_file_path: $php_sftp_file_path
+    networks:
+      - $all_network
+  
+  mysql:
+    restart: always
+    image: mariadb:10.4
+    volumes:
+      - ./mysql/store:/var/lib/mysql
+      - ./mysql/my.cnf:/etc/mysql/my.cnf
+    environment: 
+      MYSQL_ROOT_PASSWORD: Bm4Sf7gJ
+      MYSQL_DATABASE: potore
+      MYSQL_USER: laravel
+      MYSQL_PASSWORD: pZ62ntv7
+      TZ: 'Asia/Tokyo'
+      command: mysqld --character-set-server=utf8mb4 --collation-server=utf8mb4_unicode_ci
+    ports:
+      - 3306:3306
+    networks:
+      - $all_network
+
+  phpmyadmin:
+    restart: always
+    image: phpmyadmin/phpmyadmin
+    environment:
+      PMA_ARBITRARY: 1
+      PMA_HOST: mysql:3306
+      PMA_USER: laravel
+      PMA_PASSWORD: pZ62ntv7
+      DB_PASSWORD: secret
+    depends_on:
+      - mysql
+    ports:
+      - 8080:80
+    volumes:
+      - "./phpmyadmin/sessions:/sessions"
+    networks:
+      - $all_network
+
+  mailhog:
+    image: mailhog/mailhog
+    ports:
+      - "1025:1025"
+      - "8025:8025"
+    networks:
+      - appnet
+
+networks:
+  appnet:
+    external: true

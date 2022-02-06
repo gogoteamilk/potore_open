@@ -1,0 +1,191 @@
+.card:not(:last-child) {
+    margin-bottom: 20px;
+}
+
+.user-icon-box{
+    margin: 0 auto;
+    text-align: center;
+}
+
+.user-icon{
+    width: 150px;
+    height: 150px;
+    object-fit: cover;
+}
+
+.validation-feedback{
+    display: none;
+    width: 100%;
+    margin-top: 0.25rem;
+    font-size: 80%;
+}
+
+/**
+* ページ全体のレイアウト
+*/
+html {
+    height: 100%;
+  }
+body {
+    min-height: 100%;
+    display: flex;
+    flex-direction: column;
+}
+#app{
+    display: contents;
+}
+main {
+    flex: 1;
+}
+
+/*
+ * ナビゲーションbar
+ *
+ *
+ */
+.search_container{
+position: relative;
+display: block;
+padding: 3px 0;
+}
+.search_container input[type="text"]{
+box-sizing: border-box;
+border: 1px solid #999;
+border-radius: 20px;
+width: 260px;
+overflow: hidden;
+height: 2.0em;
+padding-left: 15px;
+padding-right: 38px;
+}
+.search_container input[type="text"]:focus {
+outline: 0;
+}
+.search_container input[type="submit"]{
+cursor: pointer;
+font-family: FontAwesome;
+font-size: 1.3em;
+border: none;
+background: none;
+color: #3879D9;
+position: absolute;
+width: 3.5em;
+height: 2.5em;
+right: -10px;
+top: -7px;
+outline : none;
+}
+
+#navbarSupportedContent{
+    margin-left: 10px;
+}
+
+#menu{
+    flex-direction: row;
+}
+#menu > li:not(:last-child) {
+    margin-right: 10px;
+}
+@media (min-width: 768px){
+    #menu{
+        display: flex;
+    }
+}
+@media (max-width: 768px){
+    #navbarSupportedContent{
+        margin-left: auto;
+    }
+}
+div#dropdown-menu{
+    position: absolute;
+}
+
+/*
+*  footerの設定
+*/
+footer{
+    padding: 1em 0;
+    background-color: #bfcdd7;
+}
+
+footer > div.container{
+    display: flex;
+}
+
+ul#footer-contents{
+    display: flex;
+    flex-direction: row;
+    margin: 0;
+}
+
+ul#footer-contents > li{
+    list-style: none;
+    margin: 0 10px;
+}
+
+@media (max-width: 768px){
+    ul#footer-contents{
+        flex-direction: column;
+    }
+    ul#footer-contents > li:not(:last-of-type){
+        margin-bottom: 4px;
+    }
+}
+
+/*
+* バリデーションの独自設定
+*/
+.is-valid + .validation-feedback{
+    display: block;
+    color: #38c172;  
+}
+
+.is-invalid + .validation-feedback{
+    display: block;
+    color: #e3342f;
+}
+
+
+/*
+* Now Loading
+*/
+#loading{
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 2000;
+    width: 100%;
+    height:100%;
+    display: none;
+    background: rgba(0,0,0,0.6);
+}
+.cv-spinner {
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.spinner {
+    width: 80px;
+    height: 80px;
+    border: 4px #ddd solid;
+    border-top: 4px #999 solid;
+    border-radius: 50%;
+    animation: sp-anime 0.8s infinite linear;
+}
+@keyframes sp-anime {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(359deg); }
+}
+.is-hide{
+    display:none;
+}
+/*loadigのコピー*/
+
+.cv-copy {
+    color: #fff;
+    position: absolute;
+    width: 100%;
+    margin-top: 35vh;
+    text-align: center;
+}
