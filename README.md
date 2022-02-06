@@ -26,6 +26,7 @@
  - アイコン画像登録(外部サーバーにSFTP接続して保存しています)
  - 写真作品の投稿(外部サーバーにSFTP接続して保存しています)
  - 写真作品に対しての情報登録
+ - 写真作品に共同制作者情報を登録できる
  - 登録された写真作品のディスプレイ
  - 登録された写真からランダムにトップページのヒーロー画像に使用する
  - 登録された写真からランダムにトップページのギャラリーに掲載する
@@ -53,6 +54,10 @@ CONTROLLERファイルを格納する: ./www/potore/app/Http/Controllers<br>
 ユーザー検索: ./www/potore/app/Http/Controllers/userSearchController.php<br>
 掲示板投稿: ./www/potore/app/Http/Controllers/CommentController.php<br>
 問合せ: ./www/potore/app/Http/Controllers/contactController.php<br>
+### マイグレーションファイル
+各種テーブルの設定: ./www/potore/database/migrations/
+シーダー: ./www/potore/database/seeds
+ER図: ./ERDiagram.jpg
 
 ## Docker
 ### Dockerを採用した理由
