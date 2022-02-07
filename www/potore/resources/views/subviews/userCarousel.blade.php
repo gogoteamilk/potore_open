@@ -19,5 +19,4 @@
             {{$photo[0]['comment'] ?? ''}}
         </div>
     </div>
-    {{var_dump($photo)}}
 </div>
